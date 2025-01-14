@@ -1,0 +1,45 @@
+login screen (index.html, index.js)
+    - email
+    - password
+    account creation view
+        - email(/gmail?)
+        - password
+        - optional form input for special code
+            - if code inputted and correct, account becomes IT account
+        first-time login account setup view
+            if non-IT...
+                - first name, last name
+                - enter position
+                - department selection
+                - enter rooms occupying
+            if IT...
+                - first name, last name
+                - enter position
+
+
+non-IT account (???.html, ???.js)
+- ticket creation button
+    - ticket creation view
+        - dropdown selection of device/issue type
+            if "software" selected...
+                - textinput for name of software
+            if "other hardware/cable" selected...
+                - textinput for hardware (mouse, cable, keyboard)
+        - textinput for explanation of issue
+- ticket submission history button
+    - submitted ticket view
+    - table of ticket titles (and completion status??)
+
+IT account (???.html, ???.js)
+- view of all tickets sorted by category with category as header
+**not much interactivity can be implemented rn
+
+
+
+    
+
+    
+    
+
+    
+    
