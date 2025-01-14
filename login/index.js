@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js"
 const itCode = "techsquad"
 
 const firebaseConfig = {
@@ -14,7 +14,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
-console.log(auth)
+const db = getFirestore(app)
+const usersCollectionRef = collection(db, 'users') //double check the collection id
+
+// console.log(auth)
 
 const loginScreen = document.getElementById("existing-login")
 const createAccountScreen = document.getElementById("create-account")
@@ -26,6 +29,10 @@ const newUserPassword = document.getElementById("new-user-password")
 const newUserItCode = document.getElementById("new-user-itcode")
 const createAccountSubmitBtn = document.getElementById("create-account-submit-btn")
 
+const accountCreationLandingPage = document.getElementById("initial-login")
+const genPositionSelector = document.getElementById("position-select-gen-el")
+const itPositionSelector = document.getElementById("position-select-it-el")
+const landingPageSubmitBtn = document.getElementById("submit-landing-page-info")
 
 createAccountPageBtn.addEventListener("click", viewAccountCreation)
 loginExistingAccountPageBtn.addEventListener("click", viewLogin)
@@ -45,9 +52,16 @@ function authCreateAccountWithEmail() {
     const password = newUserPassword.value
     const givenItCode = newUserItCode.value
 
-    createUserWithEmailAndPassword(auth, email, password) //yay it works! just need to implement account variants centered around the it code and adding user data to database document collections
+    createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        viewLogin()
+        if (givenItCode == itCode){
+            hideView(genPositionSelector)
+            showView(itPositionSelector) 
+        } else {
+            hideView(itPositionSelector) 
+            showView(genPositionSelector)
+        }
+        viewAccountCreationLanding()
         console.log("success!")
   })
     .catch((error) => {
@@ -67,6 +81,11 @@ function viewAccountCreation(){
 function viewLogin(){
     hideView(createAccountScreen)
     showView(loginScreen)
+}
+
+function viewAccountCreationLanding(){
+    hideView(createAccountScreen)
+    showView(accountCreationLandingPage)
 }
 
 function showView(view) {
