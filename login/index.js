@@ -12,10 +12,11 @@ const firebaseConfig = {
   appId: "1:295758897849:web:617dc8fc660741ad153168"
 }
 
+let itStaff = false
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
-const usersCollectionRef = collection(db, 'users') //double check the collection id
+const usersCollectionRef = collection(db, 'staff') //double check the collection id
 
 // console.log(auth)
 
@@ -30,6 +31,8 @@ const newUserItCode = document.getElementById("new-user-itcode")
 const createAccountSubmitBtn = document.getElementById("create-account-submit-btn")
 
 const accountCreationLandingPage = document.getElementById("initial-login")
+const firstNameInputEl = document.getElementById("first-name-input-el")
+const lastNameInputEl = document.getElementById("last-name-input-el")
 const genPositionSelector = document.getElementById("position-select-gen-el")
 const itPositionSelector = document.getElementById("position-select-it-el")
 const landingPageSubmitBtn = document.getElementById("submit-landing-page-info")
@@ -57,16 +60,36 @@ function authCreateAccountWithEmail() {
         if (givenItCode == itCode){
             hideView(genPositionSelector)
             showView(itPositionSelector) 
+            itStaff = true
         } else {
             hideView(itPositionSelector) 
             showView(genPositionSelector)
         }
         viewAccountCreationLanding()
+        landingPageSubmitBtn.addEventListener("click", addUserToStaff(itStaff)) //this does not work 100%
         console.log("success!")
   })
     .catch((error) => {
         console.error(error.message)
   });
+}
+
+function addUserToStaff(itStaffStatus) {
+    if (itStaffStatus){
+        addDoc(collection(db, "staff"), {
+            firstName: firstNameInputEl.value,
+            it_staff: itStaffStatus,
+            lastName: lastNameInputEl.value,
+            position: itPositionSelector.value,
+        })
+    } else {
+        addDoc(collection(db, "staff"), {
+            firstName: firstNameInputEl.value,
+            it_staff: itStaffStatus,
+            lastName: lastNameInputEl.value,
+            position: genPositionSelector.value,
+        })
+    }
 }
 
 /**********************************************************************
