@@ -2,7 +2,6 @@ section {
     display: none;
 }
 
-
 :root {
     --primary-color: #3454bd;
     --primary-light-color: #699eff;
@@ -44,16 +43,39 @@ body {
 /* === Typography === */
 
 h1, h2 {
-    margin: 0;
+    margin: 4px;
 }
 
-#ticket-title,#account-creation-title {
+h3 {
+    color: yellow;
+    /* Option 1 */
+    position: relative;
+    top: -25px; left: 140px;
+    /* Option 2 */
+    /* position: absolute;
+    top: 115px; left: 800px; */
+    font-size: 20px;
+    -webkit-text-stroke: #000000 .5px;
+    margin: 0;
+    rotate: 3deg;
+    animation-duration: 2s;
+    animation-name: sizeChange;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#ticket-title,#account-creation-title, #ticket-creation-title {
     font-family: var(--seconday-font);
-    font-size: 2.5em;
+    font-size: 4em;
     text-align: center;
     display: inline-block;
     background-color: white;
     border: 1px solid black;
+}
+
+#ticket-creation-title {
+    margin: auto;
+    position: relative;
 }
 
 /* === Sections === */
@@ -61,7 +83,6 @@ h1, h2 {
 section {
     margin: 3em 0;
 }
-
 
 /* #auth-fields-and-buttons {
     display: flex;
@@ -78,16 +99,17 @@ section {
     gap: 0.8em;
 }
 
-/* #user-section img {
+
+#user-section img {
     width: 3.75em;
     height: 3.75em;
     border-radius: 100%;
     border: var(--border-width) solid var(--dark-color);
-} */
+}
 
 /* #user-section h2 {
     font-size: 1.2em;
-} */
+}
 
 
 /* === Nav === */
@@ -126,7 +148,7 @@ section {
 /* === Common for elements === */
 
 
-input, button, textarea {
+input, button, textarea, select {
     font-family: inherit;
     padding: var(--element-padding);
     border-radius: var(--element-border-radius);
@@ -135,8 +157,16 @@ input, button, textarea {
  }
  
  
- input, button {
+ input, button{
+    margin: 8px;
     font-size: 1.1em;
+    text-align: center;
+    border: var(--border-width) solid var(--dark-color);
+ }
+
+ select {
+    margin: 8px;
+    font-size: .8em;
     text-align: center;
     border: var(--border-width) solid var(--dark-color);
  }
@@ -164,9 +194,8 @@ input, button, textarea {
     height: 6em;
  }
  */
- 
- /* Unused Things I cant comment out :/ */
-  textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+
+   textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--grey-color);
     opacity: 1; /* Firefox */
  }
@@ -195,7 +224,7 @@ button:hover {
 
 #login-submit-btn, #create-account-submit-btn {
     background-color: var(--primary-color);
-    box-shadow: 0px var(--button-height) 0px 0px var(--dark-color);
+    box-shadow: 0px var(--button-height) -4px -3px var(--dark-color);
     position: relative;
 }
 
@@ -232,7 +261,7 @@ button:hover {
 
 #google-btn-logo {
     width: 1.375em;
-} */
+} 
 
 /* 
 classes to make the sign out buttons work 
@@ -268,3 +297,16 @@ classes to make the sign out buttons work
     flex-direction: column;
     gap: 1em;
 }
+
+
+/* === Extras Bonuses === */
+
+@keyframes sizeChange {
+    from {
+      font-size: 25px;
+    }
+  
+    to {
+      font-size: 15px;
+    }
+  }
