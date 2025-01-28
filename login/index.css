@@ -74,7 +74,8 @@ h3 {
 }
 
 #ticket-creation-title {
-    margin: auto;
+    margin: 2.2em;
+    align-items: center;
     position: relative;
 }
 
@@ -82,6 +83,10 @@ h3 {
 
 section {
     margin: 3em 0;
+}
+
+.container {
+    flex-direction: row;
 }
 
 /* #auth-fields-and-buttons {
@@ -98,6 +103,12 @@ section {
     align-items: center;
     gap: 0.8em;
 }
+
+#initial-login {
+    display: none;
+    align-items: baseline;
+}
+
 
 
 #user-section img {
@@ -222,13 +233,13 @@ button:hover {
     cursor: pointer;
 }
 
-#login-submit-btn, #create-account-submit-btn {
-    background-color: var(--primary-color);
+#login-submit-btn, #create-account-submit-btn,#submit-landing-page-info {
+    background-color: var(--primary-color); 
     box-shadow: 0px var(--button-height) -4px -3px var(--dark-color);
     position: relative;
 }
 
-#login-submit-btn:hover,#create-account-submit-btn:hover {
+#login-submit-btn:hover,#create-account-submit-btn:hover,#submit-landing-page-info:hover {
     top: var(--button-height);
     box-shadow: none;
 }
