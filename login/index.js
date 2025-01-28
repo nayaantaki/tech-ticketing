@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js"
+
 const itCode = "techsquad"
 
 const firebaseConfig = {
@@ -21,9 +22,12 @@ const usersCollectionRef = collection(db, 'staff') //double check the collection
 // console.log(auth)
 
 const loginScreen = document.getElementById("existing-login")
+const loginEmailInputEl = document.getElementById("user-email")
+const loginPasswordInputEl = document.getElementById("user-password")
 const createAccountScreen = document.getElementById("create-account")
 const createAccountPageBtn = document.getElementById("create-account-view-btn")
 const loginExistingAccountPageBtn = document.getElementById("login-view-btn")
+const loginBtnEl = document.getElementById("login-submit-btn")
 
 const newUserEmail = document.getElementById("new-user-email")
 const newUserPassword = document.getElementById("new-user-password")
@@ -37,9 +41,12 @@ const genPositionSelector = document.getElementById("position-select-gen-el")
 const itPositionSelector = document.getElementById("position-select-it-el")
 const landingPageSubmitBtn = document.getElementById("submit-landing-page-info")
 
+const loggedInSectionEl = document.getElementById("logged-in-section")
+
 createAccountPageBtn.addEventListener("click", viewAccountCreation)
 loginExistingAccountPageBtn.addEventListener("click", viewLogin)
 createAccountSubmitBtn.addEventListener("click", authCreateAccountWithEmail)
+loginBtnEl.addEventListener("click", authSignInWithEmail)
 
 
 viewLogin()
@@ -66,7 +73,6 @@ function authCreateAccountWithEmail() {
             showView(genPositionSelector)
         }
         viewAccountCreationLanding()
-        landingPageSubmitBtn.addEventListener("click", addUserToStaff(itStaff)) //this does not work 100%
         console.log("success!")
   })
     .catch((error) => {
@@ -74,22 +80,18 @@ function authCreateAccountWithEmail() {
   });
 }
 
-function addUserToStaff(itStaffStatus) {
-    if (itStaffStatus){
-        addDoc(collection(db, "staff"), {
-            firstName: firstNameInputEl.value,
-            it_staff: itStaffStatus,
-            lastName: lastNameInputEl.value,
-            position: itPositionSelector.value,
-        })
-    } else {
-        addDoc(collection(db, "staff"), {
-            firstName: firstNameInputEl.value,
-            it_staff: itStaffStatus,
-            lastName: lastNameInputEl.value,
-            position: genPositionSelector.value,
-        })
-    }
+function authSignInWithEmail() {
+    const email = loginEmailInputEl.value
+    const password = loginPasswordInputEl.value
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        viewLoggedIn()
+        console.log("user logged in")
+    })
+    .catch((error) => {
+        console.log(error.message)
+    })
 }
 
 /**********************************************************************
@@ -109,6 +111,11 @@ function viewLogin(){
 function viewAccountCreationLanding(){
     hideView(createAccountScreen)
     showView(accountCreationLandingPage)
+}
+
+function viewLoggedIn(){
+    hideView(loginScreen)
+    showView(loggedInSectionEl)
 }
 
 function showView(view) {
