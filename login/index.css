@@ -74,7 +74,7 @@ h3 {
 }
 
 #ticket-creation-title {
-    margin: 2.2em;
+    margin: 1em;
     align-items: center;
     position: relative;
     top: 140px;
@@ -89,6 +89,11 @@ section {
 
 .container {
     flex-direction: row;
+}
+
+.ticket-container {
+    flex-wrap: wrap;
+    align-content: space-around;
 }
 
 /* #auth-fields-and-buttons {
@@ -106,7 +111,7 @@ section {
     gap: 0.8em;
 }
 
-#create-account, #logged-in-section {
+#create-account,#logged-in-section {
     display: none;
     flex-direction: column;
     align-items: center;
@@ -117,8 +122,6 @@ section {
     display: none;
     align-items: baseline;
 }
-
-
 
 #user-section img {
     width: 3.75em;
@@ -166,7 +169,6 @@ section {
 } */
 
 /* === Common for elements === */
-
 
 input, button, textarea, select {
     font-family: inherit;
@@ -242,13 +244,13 @@ button:hover {
     cursor: pointer;
 }
 
-#login-submit-btn, #create-account-submit-btn,#submit-landing-page-info {
+#login-submit-btn, #create-account-submit-btn,#submit-landing-page-info,#ticket-submit-btn {
     background-color: var(--primary-color); 
     box-shadow: 0px var(--button-height) -4px -3px var(--dark-color);
     position: relative;
 }
 
-#login-submit-btn:hover,#create-account-submit-btn:hover,#submit-landing-page-info:hover {
+#login-submit-btn:hover,#create-account-submit-btn:hover,#submit-landing-page-info:hover,#ticket-submit-btn:hover {
     top: var(--button-height);
     box-shadow: none;
 }
@@ -309,8 +311,14 @@ classes to make the sign out buttons work
     display: none;
 }
 
-/* === Post Section === */
+/* === Ticket Section === */
 
+#ticket-data-input {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    height: 4em;
+ }
 
 #post-section {
     display: flex;
