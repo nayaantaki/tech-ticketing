@@ -64,7 +64,7 @@ h3 {
     animation-direction: alternate;
 }
 
-#ticket-title,#account-creation-title, #ticket-creation-title {
+#ticket-title,#account-creation-title, #ticket-creation-title,#logged-in-title {
     font-family: var(--seconday-font);
     font-size: 4em;
     text-align: center;
@@ -77,6 +77,8 @@ h3 {
     margin: 2.2em;
     align-items: center;
     position: relative;
+    top: 140px;
+    padding: 0.2em;
 }
 
 /* === Sections === */
@@ -97,8 +99,15 @@ section {
 
 * /*=== User Section === */
 
-#existing-login,#create-account {
+#existing-login {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8em;
+}
+
+#create-account, #logged-in-section {
+    display: none;
     flex-direction: column;
     align-items: center;
     gap: 0.8em;
@@ -291,7 +300,6 @@ classes to make the sign out buttons work
     filter: invert(0.5);
 }
 /* === IDs === */
-/* testing */
 
 #logged-out-view {
     display: none;
