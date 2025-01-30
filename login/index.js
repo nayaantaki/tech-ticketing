@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js"
+import { getFirestore, collection, addDoc, getDocs, doc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js"
 
 const itCode = "techsquad"
 
@@ -44,6 +44,7 @@ const landingPageSubmitBtn = document.getElementById("submit-landing-page-info")
 const loggedInSectionEl = document.getElementById("logged-in-section")
 const ticketInputTextEl = document.getElementById("ticket-data-input")
 const ticketSubmissionBtn = document.getElementById("ticket-submit-btn")
+const ticketTable = document.getElementById("ticket-table-el")
 
 createAccountPageBtn.addEventListener("click", viewAccountCreation)
 loginExistingAccountPageBtn.addEventListener("click", viewLogin)
@@ -107,6 +108,23 @@ async function postTicketDocument() {
     console.log("your ticket has been posted")
 }
 
+async function fillTicketTable() {
+    const querySnapshot = await getDocs(collection(db, "tickets"))
+    querySnapshot.forEach((doc) => {
+        console.log(doc.data())
+        let tableRow = document.createElement("tr")
+        let emailCell = document.createElement("th")
+        emailCell.innerHTML = doc.staff //how to parse?
+        let ticketData = document.createElement("th")
+        ticketData.innerHTML = doc.ticket //how to parse?
+        tableRow.appendChild(emailCell, ticketData)
+        ticketTable.appendChild(tableRow)
+        console.log("ticket inserted into table")
+    })
+}
+
+
+
 
 /**********************************************************************
 * VIEW VISIBILITY FUNCTIONS
@@ -130,6 +148,7 @@ function viewAccountCreationLanding(){
 function viewLoggedIn(){
     hideView(loginScreen)
     showView(loggedInSectionEl)
+    fillTicketTable()
 }
 
 function showView(view) {
