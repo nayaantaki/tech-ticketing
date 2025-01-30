@@ -17,7 +17,7 @@ let itStaff = false
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
-const usersCollectionRef = collection(db, 'staff') //double check the collection id
+const ticketCollection = collection(db, 'tickets')
 
 // console.log(auth)
 
@@ -42,11 +42,14 @@ const itPositionSelector = document.getElementById("position-select-it-el")
 const landingPageSubmitBtn = document.getElementById("submit-landing-page-info")
 
 const loggedInSectionEl = document.getElementById("logged-in-section")
+const ticketInputTextEl = document.getElementById("ticket-data-input")
+const ticketSubmissionBtn = document.getElementById("ticket-submit-btn")
 
 createAccountPageBtn.addEventListener("click", viewAccountCreation)
 loginExistingAccountPageBtn.addEventListener("click", viewLogin)
 createAccountSubmitBtn.addEventListener("click", authCreateAccountWithEmail)
 loginBtnEl.addEventListener("click", authSignInWithEmail)
+ticketSubmissionBtn.addEventListener("click", postTicketDocument)
 
 
 viewLogin()
@@ -93,6 +96,17 @@ function authSignInWithEmail() {
         console.log(error.message)
     })
 }
+
+async function postTicketDocument() {
+    let ticket = ticketInputTextEl.value
+    let staff = getAuth().currentUser.email
+    const docRef = await addDoc(collection(db, "tickets"), {
+        staff: staff,
+        ticket: ticket
+    });
+    console.log("your ticket has been posted")
+}
+
 
 /**********************************************************************
 * VIEW VISIBILITY FUNCTIONS
